@@ -39,7 +39,17 @@ small{display:block;margin-top:16px;color:var(--mut);font-size:12.5px}
 (function(){
 var ITER=600000,$=function(i){return document.getElementById(i)};
 try{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',JSON.parse(t))}catch(e){}
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+if('serviceWorker' in navigator){
+  var hadController=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+  // cuando llega una versión nueva (por ejemplo, con correcciones), se ofrece recargar
+  navigator.serviceWorker.addEventListener('controllerchange',function(){
+    if(!hadController||document.getElementById('fm-upd'))return;
+    var b=document.createElement('button');b.id='fm-upd';b.textContent='Hay datos actualizados · tocá para recargar';
+    b.style.cssText='position:fixed;left:12px;right:12px;bottom:84px;z-index:99;padding:12px;border:0;border-radius:12px;background:#1f4fa3;color:#fff;font:600 15px -apple-system,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.25)';
+    b.onclick=function(){location.reload()};document.body.appendChild(b);
+  });
+}
 var binP=fetch('fichas.bin').then(function(r){if(!r.ok)throw new Error('net');return r.arrayBuffer()});
 function b64(u){var s='';u=new Uint8Array(u);for(var i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s)}
 function unb64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}

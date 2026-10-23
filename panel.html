@@ -1,0 +1,326 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#1f4fa3">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Corregir fichas</title>
+<style>
+:root{--bg:#f6f5f2;--card:#fff;--ink:#1b1c1e;--mut:#62656b;--line:#e3e1dc;--soft:#efede8;
+--r:#c62828;--r-bg:#fdecea;--r-ink:#8e1616;--a:#b26a00;--a-bg:#fff4e0;--a-ink:#7a4800;--v:#2e7d32;--v-bg:#e8f5e9;--v-ink:#1b5e20;
+--acc:#1f4fa3;--acc-bg:#e8eefb;--d:#5e35b1;--d-bg:#efeafb}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#121315;--card:#1c1d20;--ink:#ecebe8;--mut:#a3a5ab;--line:#2d2f33;--soft:#25272b;
+--r:#ef5350;--r-bg:#3a1a1a;--r-ink:#ffb4ae;--a:#ffb547;--a-bg:#3a2a10;--a-ink:#ffd699;--v:#66bb6a;--v-bg:#16301a;--v-ink:#a5d6a7;--acc:#8ab4ff;--acc-bg:#1d2a44;--d:#b39ddb;--d-bg:#2a2340}}
+:root[data-theme=dark]{--bg:#121315;--card:#1c1d20;--ink:#ecebe8;--mut:#a3a5ab;--line:#2d2f33;--soft:#25272b;
+--r:#ef5350;--r-bg:#3a1a1a;--r-ink:#ffb4ae;--a:#ffb547;--a-bg:#3a2a10;--a-ink:#ffd699;--v:#66bb6a;--v-bg:#16301a;--v-ink:#a5d6a7;--acc:#8ab4ff;--acc-bg:#1d2a44;--d:#b39ddb;--d-bg:#2a2340}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:96px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:9px 13px}
+button.pri{background:var(--acc);color:#fff;border-color:var(--acc);font-weight:700}
+button.link{border:0;background:none;color:var(--acc);padding:0 4px;font-size:14.5px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:10px;min-height:54px}
+header h1{font-size:17px;margin:0;flex:1}header a{color:var(--acc);text-decoration:none;font-size:14.5px;font-weight:600}
+.pill{display:inline-block;border-radius:999px;padding:1px 8px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.pill.F{background:var(--r-bg);color:var(--r-ink)}.pill.I{background:var(--a-bg);color:var(--a-ink)}.pill.D{background:var(--d-bg);color:var(--d)}
+.sum{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
+.search{position:sticky;top:55px;z-index:10;background:var(--bg);padding:10px 0 6px}
+.search input{width:100%;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--card);font-size:16px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border-radius:999px;padding:6px 12px;font-size:14px;white-space:nowrap}.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.it{display:flex;align-items:center;gap:8px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;cursor:pointer}
+.it .n{flex:1;min-width:0}.it .ed{color:var(--acc);font-weight:700;font-size:13.5px}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}.dot.Crítico{background:var(--r)}.dot.Atención{background:var(--a)}.dot.Sin{background:var(--v)}
+.head{display:flex;align-items:center;gap:10px;padding:14px 0 8px}.head h2{font-size:21px;margin:0;flex:1}
+.badge{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;text-transform:uppercase}
+.badge.Crítico{background:var(--r);color:#fff}.badge.Atención{background:var(--a);color:#1b1c1e}.badge.Sin{background:var(--v);color:#fff}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin:0 0 8px}
+.scanbtns{display:flex;gap:8px;flex-wrap:wrap}.scanbtns button{flex:1}
+.iss{display:flex;gap:8px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--line)}.iss:first-child{border-top:0}
+.iss .t{flex:1;min-width:0;font-size:15px;overflow-wrap:anywhere}.iss .pill{flex:none}.iss.res .t{text-decoration:line-through;color:var(--mut)}
+.iss label{flex:none;display:flex;align-items:center;gap:4px;color:var(--mut);font-size:13.5px;white-space:nowrap}
+.iss input[type=checkbox]{width:20px;height:20px}
+.f{display:block;margin-bottom:10px}.f span{display:block;font-size:12.5px;color:var(--mut);margin-bottom:3px}
+.f input,.f select,.f textarea,.row input{width:100%;padding:10px 11px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:16px}
+.f textarea{min-height:70px;resize:vertical}.f.chg input,.f.chg select,.f.chg textarea{border-color:var(--acc);background:var(--acc-bg)}
+.f.hl input,.f.hl select,.f.hl textarea,.box.hl{outline:3px solid var(--r);outline-offset:1px}
+.row{display:grid;grid-template-columns:52px 1fr auto;gap:6px;margin-bottom:10px;align-items:center}
+.row .tel{grid-column:2/3}
+.arow{display:grid;grid-template-columns:1fr 1fr auto;gap:6px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed var(--line)}
+.arow select{padding:9px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:15px;min-width:0}
+.arow textarea{grid-column:1/-1;width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:16px;min-height:52px}
+.x{border:0;background:none;color:var(--mut);font-size:22px;padding:0 6px}
+.note{color:var(--mut);font-size:13px;margin:6px 0 0}
+.qa{display:grid;grid-template-columns:1fr 84px;gap:6px 8px;align-items:center}
+.qa input{grid-column:1/-1;margin-bottom:6px}
+.qa select,.qa input{padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--bg);font-size:16px}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);padding:10px 0 calc(10px + env(safe-area-inset-bottom))}
+.bar .wrap{display:flex;align-items:center;gap:10px}.bar .msg{flex:1;font-size:14.5px}.bar .msg small{display:block;color:var(--mut);font-size:12.5px}
+.bar.hide{display:none}
+.sheet{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.5);display:none;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}.sheet .card{background:var(--card);width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+.sheet input{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:16px;margin:10px 0}
+.viewer{position:fixed;inset:0;z-index:60;background:#111;display:none;flex-direction:column}
+.viewer.on{display:flex}.viewer .vt{display:flex;gap:8px;align-items:center;padding:10px 12px;padding-top:calc(10px + env(safe-area-inset-top));background:#000;color:#fff}
+.viewer .vt span{flex:1;font-size:14px;color:#bbb}.viewer .vb{flex:1;overflow:auto;-webkit-overflow-scrolling:touch}
+.viewer img{width:100%;display:block}.viewer img.z{width:250%}
+.lock{max-width:380px;margin:12vh auto 0;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.lock input{width:100%;padding:13px;border-radius:12px;border:1px solid var(--line);background:var(--bg);font-size:17px;margin:10px 0}
+.lock button{width:100%}.err{color:var(--r);font-weight:600;margin-top:10px}
+.center{text-align:center;color:var(--mut);padding:50px 16px}
+</style></head><body>
+<div id="root"><div class="center">Cargando…</div></div>
+<div class="bar hide" id="bar"><div class="wrap"><div class="msg" id="barMsg"></div><button class="pri" id="barBtn">Guardar</button></div></div>
+<div class="viewer" id="viewer"><div class="vt"><span id="vTitle"></span><button id="vZoom">Ampliar</button><button id="vClose">Cerrar</button></div><div class="vb" id="vBody"></div></div>
+<div class="sheet" id="sheet"><form class="card" id="tf">
+  <h3>Clave de guardado</h3>
+  <p style="margin:0">Para guardar correcciones hace falta la clave de guardado que te pasó Agustín. Se pide una sola vez y queda solo en este teléfono.</p>
+  <input id="tok" type="password" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="github_pat_…">
+  <div style="display:flex;gap:8px"><button type="button" id="tCancel" style="flex:1">Cancelar</button><button class="pri" id="tOk" style="flex:2">Guardar clave</button></div>
+  <div class="err" id="tErr"></div>
+</form></div>
+<script>
+(function(){
+var ITER=600000,API='https://api.github.com/repos/';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var KEY=null,SALT=null,DATA=null,CORR={},DIRTY={},VIEW={name:'list'},FILTER='graves',Q='',PUBLISHING=null,TOKEN=null;
+try{TOKEN=localStorage.getItem('fm-gh-token')}catch(e){}
+var ANT=[["alergia","¿Alérgico/a?"],["asma_respiratoria","¿Asma / respiratoria?"],["cardiaca","¿Cardíaca?"],["presion_alta","¿Presión alta?"],["epilepsia","¿Epilepsia?"],
+ ["convulsiones_fiebre","¿Convulsiones con fiebre?"],["hipertiroidismo","¿Hipertiroidismo?"],["hipotiroidismo","¿Hipotiroidismo?"],["diabetes","¿Diabetes?"],
+ ["traumatismo_craneano","¿Traumatismo craneano?"],["hernias","¿Hernias?"],["columna","¿Columna?"],["tratamiento_psicologico","¿Tratamiento psicológico?"],
+ ["depresion","¿Depresión?"],["panico","¿Ataques de pánico?"],["vacuna_antigripal","¿Vacuna antigripal?"],["apendicitis","¿Apendicitis?"],["otras_operaciones","¿Otras operaciones?"]];
+var FIELDS=[["nombre","Nombre"],["ci","C.I."],["grupo_sanguineo","Grupo sanguíneo"],["hemoderivados","Hemoderivados"],["sociedad_medica","Sociedad médica"],
+ ["antitermico","Antitérmico habitual"],["domicilio","Domicilio"],["autoriza_responsable","Responsable que firma"],["firmada","Ficha firmada"],
+ ["medicacion_actual","Medicación actual","t"],["otras_enfermedades","Otras enfermedades / detalles","t"],["alimentacion","Alimentación / restricciones","t"],
+ ["tratamientos_internaciones_ultimo_anio","Tratamientos o internaciones último año","t"],["temores_inquietudes","Temores o inquietudes","t"]];
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fold(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function same(a,b){return JSON.stringify(a)===JSON.stringify(b)}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||'null');if(v===null)localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+try{var th=localStorage.getItem('theme');if(th)document.documentElement.setAttribute('data-theme',JSON.parse(th))}catch(e){}
+
+// ---------- cifrado: misma clave que la app (la contraseña nunca sale del teléfono)
+function b64(u){var s='',ch=0x8000;u=new Uint8Array(u);for(var i=0;i<u.length;i+=ch)s+=String.fromCharCode.apply(null,u.subarray(i,i+ch));return btoa(s)}
+function unb64(s){var b=atob(s.replace(/\s/g,'')),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
+function gunzip(buf){return new Response(new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()}
+function gzip(buf){return new Response(new Blob([buf]).stream().pipeThrough(new CompressionStream('gzip'))).arrayBuffer()}
+function decrypt(buf,gz){var u=new Uint8Array(buf);return crypto.subtle.decrypt({name:'AES-GCM',iv:u.slice(16,28)},KEY,u.slice(28)).then(function(p){return gz===false?p:gunzip(p)})}
+function decryptJSON(buf){return decrypt(buf).then(function(p){return JSON.parse(new TextDecoder().decode(p))})}
+function encryptJSON(obj){return gzip(new TextEncoder().encode(JSON.stringify(obj))).then(function(z){var iv=crypto.getRandomValues(new Uint8Array(12));
+  return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},KEY,z).then(function(ct){var out=new Uint8Array(28+ct.byteLength);out.set(SALT,0);out.set(iv,16);out.set(new Uint8Array(ct),28);return out})})}
+function importRaw(raw){return crypto.subtle.importKey('raw',raw,'AES-GCM',true,['encrypt','decrypt'])}
+function derive(pw,salt){return crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']).then(function(k){
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:ITER,hash:'SHA-256'},k,{name:'AES-GCM',length:256},true,['encrypt','decrypt'])})}
+
+// ---------- GitHub: leer y guardar correcciones.bin (cifrado)
+function gh(path,opt){opt=opt||{};opt.headers={'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+  if(TOKEN)opt.headers.Authorization='Bearer '+TOKEN;opt.cache='no-store';return fetch(API+DATA.repo+path,opt)}
+function fetchCorr(){
+  return gh('/contents/correcciones.bin?ref=main&nc='+Date.now()).then(function(r){
+    if(r.status===404)return {corr:{},sha:null};if(!r.ok)throw new Error('gh '+r.status);
+    return r.json().then(function(j){return decryptJSON(unb64(j.content).buffer).then(function(c){return {corr:c,sha:j.sha}})});
+  });
+}
+function askToken(){return new Promise(function(resolve,reject){
+  $('#sheet').classList.add('on');$('#tErr').textContent='';$('#tok').value='';setTimeout(function(){$('#tok').focus()},200);
+  $('#tCancel').onclick=function(){$('#sheet').classList.remove('on');reject(new Error('cancelado'))};
+  $('#tf').onsubmit=function(e){e.preventDefault();var t=$('#tok').value.trim();if(!t)return;$('#tOk').disabled=true;$('#tOk').textContent='Verificando…';
+    fetch(API+DATA.repo,{headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json'},cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
+      $('#tOk').disabled=false;$('#tOk').textContent='Guardar clave';
+      if(!j||!j.permissions||!j.permissions.push){$('#tErr').textContent='Esa clave no sirve para guardar. Revisala con Agustín.';return}
+      TOKEN=t;try{localStorage.setItem('fm-gh-token',t)}catch(e){};$('#sheet').classList.remove('on');resolve();
+    }).catch(function(){$('#tOk').disabled=false;$('#tOk').textContent='Guardar clave';$('#tErr').textContent='Sin conexión. Probá de nuevo.'})};
+})}
+
+// ---------- vista de una ficha = original + correcciones
+function entry(id){return CORR[id]||{}}
+function viewOf(f){
+  var o=f.orig,c=entry(f.id),v={campos:clone(o.campos),contactos:clone(o.contactos),antecedentes:clone(o.antecedentes),alertas:clone(o.alertas),resumen:o.resumen};
+  var cg=c.corrige||{};
+  Object.keys(cg).forEach(function(k){if(k==='contactos')v.contactos=clone(cg[k]);else if(k==='antecedentes')v.antecedentes=clone(cg[k]);else v.campos[k]=cg[k]});
+  if('alertas' in c)v.alertas=clone(c.alertas);if('resumen' in c)v.resumen=c.resumen;
+  return v;
+}
+function ciCheck(ci){if(!ci)return 'Falta la C.I.';var d=String(ci).replace(/\D/g,'');if(d.length===7)return 'La C.I. no tiene dígito verificador';if(d.length!==8)return 'La C.I. tiene '+d.length+' cifras';
+  var w=[2,9,8,7,6,3,4],s=0;for(var i=0;i<7;i++)s+=d[i]*w[i];var calc=(10-s%10)%10;return calc===+d[7]?null:'El dígito verificador no cierra (escrito '+d[7]+', debería ser '+calc+')'}
+function telOk(t){var d=String(t||'').replace(/\D/g,'');return (d.length===9&&d[0]==='0'&&d[1]==='9')||(d.length===8&&'249'.indexOf(d[0])>=0)||d.indexOf('598')===0}
+function issuesOf(f,v){
+  var res=entry(f.id).resueltos||[],out=[];
+  f.issues.forEach(function(i){
+    var k=i.key,keep=true;
+    if(i.tipo==='Falta'&&i.campo){if(i.campo==='contactos')keep=!v.contactos.some(function(c){return c.tel});else if(i.campo==='firmada')keep=!v.campos.firmada;else keep=!v.campos[i.campo]}
+    if(k==='ci')keep=!!ciCheck(v.campos.ci);
+    if(k.indexOf('q|')===0)keep=String(v.campos[k.slice(2)]||'').indexOf('[?]')>=0;
+    if(k.indexOf('tel|')===0){var n=k.slice(4);keep=!v.contactos.some(function(c){return c.nombre===n&&telOk(c.tel)})}
+    if(keep)out.push({key:k,tipo:i.tipo,txt:k==='ci'?ciCheck(v.campos.ci):i.txt,campo:i.campo,resuelto:res.indexOf(k)>=0});
+  });
+  if(v.campos.ci!==f.orig.campos.ci&&ciCheck(v.campos.ci)&&!out.some(function(i){return i.key==='ci'}))
+    out.unshift({key:'ci',tipo:'Inválido',txt:ciCheck(v.campos.ci),campo:'ci',resuelto:false});
+  return out;
+}
+function counts(f){var c={F:0,I:0,D:0};issuesOf(f,viewOf(f)).forEach(function(i){if(!i.resuelto)c[i.tipo[0]]++});return c}
+
+// ---------- editar: cada cambio se compara con el original y queda como corrección
+function touch(id){DIRTY[id]=1;store('fm-panel-draft',{corr:CORR,dirty:DIRTY});renderBar()}
+function setField(f,k,val){var c=CORR[f.id]=CORR[f.id]||{};c.corrige=c.corrige||{};
+  if(same(val,f.orig.campos[k]))delete c.corrige[k];else c.corrige[k]=val;tidy(f.id);touch(f.id)}
+function setPart(f,part,val){var c=CORR[f.id]=CORR[f.id]||{};
+  if(part==='contactos'||part==='antecedentes'){c.corrige=c.corrige||{};if(same(val,f.orig[part]))delete c.corrige[part];else c.corrige[part]=val}
+  else if(part==='resueltos'){if(val.length)c.resueltos=val;else delete c.resueltos}
+  else{if(same(val,f.orig[part]))delete c[part];else c[part]=val}
+  tidy(f.id);touch(f.id)}
+function tidy(id){var c=CORR[id];if(!c)return;if(c.corrige&&!Object.keys(c.corrige).length)delete c.corrige;
+  if(!Object.keys(c).filter(function(k){return k[0]!=='_'}).length)delete CORR[id];else c._editado=new Date().toISOString().slice(0,19)}
+
+// ---------- pantallas
+function render(){if(VIEW.name==='list')renderList();else renderFicha()}
+function renderList(){
+  var tot={F:0,I:0,D:0},rows='';
+  DATA.fichas.forEach(function(f){var c=counts(f);tot.F+=c.F;tot.I+=c.I;tot.D+=c.D;
+    if(Q&&fold(f.nombre).indexOf(Q)<0)return;
+    if(FILTER==='graves'&&!(c.F+c.I))return;if(FILTER==='pend'&&!(c.F+c.I+c.D))return;if(FILTER==='edit'&&!CORR[f.id])return;
+    rows+='<div class="it" data-id="'+f.id+'"><span class="dot '+f.nivel.split(' ')[0]+'"></span><div class="n">'+esc(f.nombre)+(DIRTY[f.id]?' <span class="ed">• sin guardar</span>':CORR[f.id]?' <span class="ed">✎</span>':'')+'</div>'
+      +(c.F?'<span class="pill F">'+c.F+'</span>':'')+(c.I?'<span class="pill I">'+c.I+'</span>':'')+(c.D?'<span class="pill D">'+c.D+'</span>':'')+'</div>'});
+  var chips=[['graves','Faltan o inválidos'],['pend','Todo pendiente'],['edit','Corregidas'],['all','Todas']].map(function(x){return '<button class="chip'+(FILTER===x[0]?' on':'')+'" data-flt="'+x[0]+'">'+x[1]+'</button>'}).join('');
+  $('#root').innerHTML='<header><div class="wrap"><h1>Corregir fichas</h1><a href="./">Ir a la app</a></div></header><div class="wrap">'
+    +'<div class="sum"><span class="pill F">'+tot.F+' faltan</span><span class="pill I">'+tot.I+' inválidos</span><span class="pill D">'+tot.D+' dudas</span></div>'
+    +'<div class="search"><input id="q" type="search" placeholder="Buscar alumno…" value="'+esc(Q)+'"><div class="chips">'+chips+'</div></div>'
+    +(rows||'<div class="center">Nada pendiente con este filtro 🎉</div>')
+    +'<p class="note" style="margin:16px 0">Rojo: falta el dato · Naranja: dato inválido · Violeta: lectura dudosa del manuscrito. Tocá un alumno para ver el escaneo y corregir.</p>'
+    +'<button id="copy" style="width:100%">Copiar lista de pendientes</button></div>';
+  $('#q').oninput=function(){Q=fold(this.value);var pos=this.selectionStart;renderList();var q=$('#q');q.focus();try{q.setSelectionRange(pos,pos)}catch(e){}};
+  $$('[data-flt]').forEach(function(b){b.onclick=function(){FILTER=b.getAttribute('data-flt');renderList()}});
+  $$('.it').forEach(function(el){el.onclick=function(){VIEW={name:'ficha',id:el.getAttribute('data-id')};history.pushState({f:VIEW.id},'');render();window.scrollTo(0,0)}});
+  $('#copy').onclick=function(){var out=['Pendientes de las fichas médicas:',''];DATA.fichas.forEach(function(f){var l=issuesOf(f,viewOf(f)).filter(function(i){return !i.resuelto&&i.tipo!=='Dudoso'});if(!l.length)return;out.push('*'+f.nombre+'*');l.forEach(function(i){out.push('- '+i.txt)});out.push('')});
+    var t=out.join('\n');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){$('#copy').textContent='Copiado ✓'},function(){prompt('Copiá el texto:',t)})};
+}
+function byId(id){return DATA.fichas.filter(function(f){return f.id===id})[0]}
+function fieldHtml(k,label,t,v,o){
+  var val=v.campos[k],chg=!same(val,o.campos[k])?' chg':'';
+  if(k==='hemoderivados')return '<label class="f'+chg+'"><span>'+label+'</span><select data-f="'+k+'"><option value="si"'+(val==='si'?' selected':'')+'>Autoriza</option><option value="no"'+(val==='no'?' selected':'')+'>NO autoriza</option><option value=""'+(!val?' selected':'')+'>Sin dato</option></select></label>';
+  if(k==='firmada')return '<label class="f'+chg+'"><span>'+label+'</span><select data-f="'+k+'"><option value="1"'+(val?' selected':'')+'>Sí</option><option value=""'+(!val?' selected':'')+'>No</option></select></label>';
+  if(t)return '<label class="f'+chg+'"><span>'+label+'</span><textarea data-f="'+k+'">'+esc(val)+'</textarea></label>';
+  return '<label class="f'+chg+'"><span>'+label+'</span><input data-f="'+k+'" value="'+esc(val)+'"'+(k==='grupo_sanguineo'?' list="gs" placeholder="0+, A-, AB+…"':'')+'></label>';
+}
+function renderFicha(){
+  var f=byId(VIEW.id);if(!f){VIEW={name:'list'};return render()}
+  var v=viewOf(f),o=f.orig,iss=issuesOf(f,v);
+  var h='<header><div class="wrap"><button class="link" id="back" style="font-size:16px">← Lista</button><h1></h1><a href="./">App</a></div></header><div class="wrap">';
+  h+='<div class="head"><h2>'+esc(v.campos.nombre||f.nombre)+'</h2><span class="badge '+f.nivel.split(' ')[0]+'">'+esc(f.nivel)+'</span></div>';
+  h+='<div class="box"><h3>Escaneo original</h3><div class="scanbtns">'+f.paginas.map(function(p,i){return '<button data-scan="'+p+'">📄 Hoja '+(i+1)+'</button>'}).join('')+'</div></div>';
+  var nd=iss.filter(function(i){return i.tipo==='Dudoso'&&!i.resuelto}).length;
+  h+='<div class="box" id="issbox"><h3>Pendientes</h3>'+(iss.length?iss.map(function(i){return '<div class="iss'+(i.resuelto?' res':'')+'" data-k="'+esc(i.key)+'"><span class="pill '+i.tipo[0]+'">'+i.tipo+'</span><span class="t">'+esc(i.txt)+(i.campo?' <button class="link" data-go="'+i.campo+'">corregir</button>':'')+'</span><label><input type="checkbox" data-res="'+esc(i.key)+'"'+(i.resuelto?' checked':'')+'>listo</label></div>'}).join(''):'<p class="note">Sin pendientes.</p>')
+    +(nd>1?'<p class="note"><button class="link" id="allD">Marcar las '+nd+' dudas como revisadas</button></p>':'')+'</div>';
+  h+='<div class="box"><h3>Datos</h3>'+FIELDS.map(function(x){return fieldHtml(x[0],x[1],x[2],v,o)}).join('')+'<datalist id="gs"><option>0+<option>0-<option>A+<option>A-<option>B+<option>B-<option>AB+<option>AB-</datalist></div>';
+  h+='<div class="box" id="contacts"><h3>Contactos de emergencia</h3>'+v.contactos.map(function(c,i){return '<div class="row"><input data-c="'+i+'" data-k="orden" value="'+esc(c.orden)+'" placeholder="#" inputmode="numeric"><input data-c="'+i+'" data-k="nombre" value="'+esc(c.nombre)+'" placeholder="Nombre"><button class="x" data-delc="'+i+'" aria-label="Quitar">×</button><input class="tel" data-c="'+i+'" data-k="tel" value="'+esc(c.tel)+'" placeholder="Teléfono (099…)" inputmode="tel"></div>'}).join('')
+    +'<button id="addC">+ Agregar contacto</button><p class="note">Teléfonos uruguayos tal cual (099…, 2…); la app agrega +598. Sin nombre = número de mutualista.</p></div>';
+  var catOpts=function(sel){return Object.keys(DATA.cats).map(function(k){return '<option value="'+k+'"'+(k===sel?' selected':'')+'>'+esc(DATA.cats[k])+'</option>'}).join('')};
+  h+='<div class="box"><h3>Lo que ve el médico</h3><label class="f'+(!same(v.resumen,o.resumen)?' chg':'')+'"><span>Resumen</span><textarea id="resumen">'+esc(v.resumen)+'</textarea></label>'
+    +v.alertas.map(function(a,i){return '<div class="arow"><select data-a="'+i+'" data-k="nivel"><option value="rojo"'+(a.nivel==='rojo'?' selected':'')+'>🔴 Crítico</option><option value="amarillo"'+(a.nivel==='amarillo'?' selected':'')+'>🟡 Atención</option><option value="verde"'+(a.nivel==='verde'?' selected':'')+'>🟢 Info</option></select><select data-a="'+i+'" data-k="cat">'+catOpts(a.cat)+'</select><button class="x" data-dela="'+i+'" aria-label="Quitar">×</button><textarea data-a="'+i+'" data-k="txt">'+esc(a.txt)+'</textarea></div>'}).join('')
+    +'<button id="addA">+ Agregar alerta</button><p class="note">Si corregís una alergia, medicación o enfermedad, actualizá también la alerta: es lo primero que se lee en la app.</p></div>';
+  h+='<details class="box"><summary><h3 style="display:inline">Cuestionario de antecedentes</h3></summary><div class="qa" style="margin-top:10px">'+ANT.map(function(x){var a=v.antecedentes[x[0]]||{r:null,c:null};return '<span>'+x[1]+'</span><select data-q="'+x[0]+'"><option value="si"'+(a.r==='si'?' selected':'')+'>Sí</option><option value="no"'+(a.r==='no'?' selected':'')+'>No</option><option value=""'+(!a.r?' selected':'')+'>—</option></select><input data-qc="'+x[0]+'" value="'+esc(a.c)+'" placeholder="Comentario">'}).join('')+'</div></details>';
+  if(CORR[f.id])h+='<button id="undo" style="width:100%;margin-bottom:20px">Deshacer todas las correcciones de esta ficha</button>';
+  h+='</div>';
+  $('#root').innerHTML=h;
+  $('#back').onclick=function(){history.back()};
+  $$('[data-scan]').forEach(function(b){b.onclick=function(){openScan(b.getAttribute('data-scan'),b.textContent)}});
+  $$('[data-res]').forEach(function(cb){cb.onchange=function(){var cur=(entry(f.id).resueltos||[]).slice(),k=cb.getAttribute('data-res');
+    if(cb.checked&&cur.indexOf(k)<0)cur.push(k);if(!cb.checked)cur=cur.filter(function(x){return x!==k});setPart(f,'resueltos',cur);renderFichaKeep()}});
+  var ad=$('#allD');if(ad)ad.onclick=function(){var cur=(entry(f.id).resueltos||[]).slice();iss.forEach(function(i){if(i.tipo==='Dudoso'&&cur.indexOf(i.key)<0)cur.push(i.key)});setPart(f,'resueltos',cur);renderFichaKeep()};
+  $$('[data-go]').forEach(function(b){b.onclick=function(){var el=$('[data-f="'+b.getAttribute('data-go')+'"]');var w=el?el.closest('.f'):$('#contacts');w.scrollIntoView({block:'center',behavior:'smooth'});w.classList.add('hl');setTimeout(function(){w.classList.remove('hl')},2000);if(el)setTimeout(function(){el.focus()},350)}});
+  $$('[data-f]').forEach(function(el){el.addEventListener(el.tagName==='SELECT'?'change':'input',function(){var k=el.getAttribute('data-f'),val=el.value;
+    if(k==='firmada')val=!!val;else if(k==='hemoderivados')val=val||null;else val=val.trim()?val:null;setField(f,k,val);el.closest('.f').classList.toggle('chg',!same(val,o.campos[k]));hideFixed()})});
+  $('#resumen').addEventListener('input',function(){setPart(f,'resumen',this.value.trim()||null)});
+  function contacts(){return viewOf(f).contactos}
+  $$('[data-c]').forEach(function(el){el.addEventListener('input',function(){var cs=contacts(),c=cs[+el.getAttribute('data-c')],k=el.getAttribute('data-k');c[k]=k==='orden'?(parseInt(el.value,10)||null):(el.value.trim()||null);setPart(f,'contactos',cs);hideFixed()})});
+  $$('[data-delc]').forEach(function(b){b.onclick=function(){var cs=contacts();cs.splice(+b.getAttribute('data-delc'),1);setPart(f,'contactos',cs);renderFichaKeep()}});
+  $('#addC').onclick=function(){var cs=contacts();cs.push({orden:cs.filter(function(c){return c.nombre}).length+1,nombre:null,tel:null});setPart(f,'contactos',cs);renderFichaKeep()};
+  function alerts(){return viewOf(f).alertas}
+  $$('[data-a]').forEach(function(el){el.addEventListener(el.tagName==='SELECT'?'change':'input',function(){var as=alerts();as[+el.getAttribute('data-a')][el.getAttribute('data-k')]=el.value;setPart(f,'alertas',as)})});
+  $$('[data-dela]').forEach(function(b){b.onclick=function(){var as=alerts();as.splice(+b.getAttribute('data-dela'),1);setPart(f,'alertas',as);renderFichaKeep()}});
+  $('#addA').onclick=function(){var as=alerts();as.push({nivel:'amarillo',cat:'otros',txt:''});setPart(f,'alertas',as);renderFichaKeep()};
+  $$('[data-q]').forEach(function(el){el.onchange=function(){var a=viewOf(f).antecedentes,k=el.getAttribute('data-q');a[k]=a[k]||{r:null,c:null};a[k].r=el.value||null;setPart(f,'antecedentes',a)}});
+  $$('[data-qc]').forEach(function(el){el.addEventListener('input',function(){var a=viewOf(f).antecedentes,k=el.getAttribute('data-qc');a[k]=a[k]||{r:null,c:null};a[k].c=el.value.trim()||null;setPart(f,'antecedentes',a)})});
+  var u=$('#undo');if(u)u.onclick=function(){if(!confirm('¿Deshacer todas las correcciones de esta ficha? Vuelve a lo transcripto del manuscrito.'))return;delete CORR[f.id];touch(f.id);renderFichaKeep()};
+  // al corregir un dato, su pendiente desaparece sin redibujar (para no perder el teclado)
+  function hideFixed(){var live=issuesOf(f,viewOf(f)).map(function(i){return i.key});$$('#issbox .iss').forEach(function(row){row.style.display=live.indexOf(row.getAttribute('data-k'))>=0?'':'none'})}
+}
+function renderFichaKeep(){var y=window.scrollY;renderFicha();window.scrollTo(0,y)}
+window.addEventListener('popstate',function(){VIEW={name:'list'};render()});
+
+// ---------- escaneos (se descargan cifrados y se descifran en el teléfono)
+var zoom=false;
+function openScan(p,title){$('#vTitle').textContent=title;$('#vBody').innerHTML='<div class="center" style="color:#aaa">Cargando escaneo…</div>';$('#viewer').classList.add('on');zoom=false;$('#vZoom').textContent='Ampliar';
+  fetch('s/'+p+'.bin',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.arrayBuffer()}).then(function(b){return decrypt(b,false)}).then(function(jpg){
+    var url=URL.createObjectURL(new Blob([jpg],{type:'image/jpeg'}));$('#vBody').innerHTML='<img src="'+url+'" alt="">';$('#vBody img').onclick=toggleZoom})
+  .catch(function(){$('#vBody').innerHTML='<div class="center" style="color:#aaa">No se pudo cargar el escaneo (¿sin conexión?).</div>'})}
+function toggleZoom(){var im=$('#vBody img');if(!im)return;zoom=!zoom;im.classList.toggle('z',zoom);$('#vZoom').textContent=zoom?'Achicar':'Ampliar'}
+$('#vZoom').onclick=toggleZoom;$('#vClose').onclick=function(){$('#viewer').classList.remove('on');$('#vBody').innerHTML=''};
+
+// ---------- guardar → GitHub regenera la app sola
+function renderBar(){
+  var n=Object.keys(DIRTY).length,bar=$('#bar'),btn=$('#barBtn');
+  if(PUBLISHING){bar.classList.remove('hide');$('#barMsg').innerHTML=PUBLISHING.msg;btn.style.display=PUBLISHING.done?'':'none';btn.textContent='OK';btn.disabled=false;return}
+  btn.style.display='';btn.textContent='Guardar';btn.disabled=false;
+  if(!n){bar.classList.add('hide');return}
+  bar.classList.remove('hide');$('#barMsg').innerHTML=n+(n===1?' ficha':' fichas')+' con cambios sin guardar<small>Se guardan cifrados y la app se actualiza sola</small>';
+}
+$('#barBtn').onclick=function(){if(PUBLISHING&&PUBLISHING.done){PUBLISHING=null;renderBar();return}save()};
+function save(){
+  if(!Object.keys(DIRTY).length)return;
+  if(!TOKEN)return askToken().then(save,function(){});
+  var b=$('#barBtn');b.disabled=true;$('#barMsg').innerHTML='Guardando…';
+  var attempt=function(n){return fetchCorr().then(function(remote){
+      var merged=remote.corr;Object.keys(DIRTY).forEach(function(id){if(CORR[id])merged[id]=CORR[id];else delete merged[id]});
+      return encryptJSON(merged).then(function(bytes){return gh('/contents/correcciones.bin',{method:'PUT',body:JSON.stringify({message:'Correcciones desde el celular',content:b64(bytes),sha:remote.sha||undefined,branch:'main'})})})
+        .then(function(r){
+          if(r.status===401||r.status===403){TOKEN=null;try{localStorage.removeItem('fm-gh-token')}catch(e){};throw new Error('clave')}
+          if((r.status===409||r.status===422)&&n<2)return attempt(n+1);
+          if(!r.ok)throw new Error('error '+r.status);
+          return r.json().then(function(j){CORR=merged;DIRTY={};store('fm-panel-draft',null);follow(j.commit.sha)})});
+    })};
+  attempt(0).catch(function(e){b.disabled=false;
+    if(e.message==='clave'){$('#barMsg').innerHTML='⚠ La clave de guardado no funcionó<small>Tocá Guardar para ingresarla de nuevo.</small>';return}
+    $('#barMsg').innerHTML='⚠ No se pudo guardar. Revisá la conexión e intentá de nuevo.<small>Los cambios siguen en este teléfono.</small>'});
+}
+function follow(commit){
+  var start=Date.now(),v0=null;PUBLISHING={msg:'✓ Guardado. Actualizando la app…<small>Tarda 1 o 2 minutos; podés seguir corrigiendo.</small>',done:false};renderBar();render();
+  fetch('version.json?nc='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(j){v0=j.version}).catch(function(){});
+  var t=setInterval(function(){
+    if(Date.now()-start>6*60*1000){clearInterval(t);PUBLISHING={msg:'Guardado ✓ · la actualización está tardando más de lo normal<small>Las correcciones no se pierden; la app se actualiza sola cuando termine.</small>',done:true};renderBar();return}
+    gh('/actions/runs?head_sha='+commit).then(function(r){return r.json()}).then(function(j){var run=(j.workflow_runs||[])[0];
+      if(run&&run.status==='completed'&&run.conclusion!=='success'&&run.conclusion!=='cancelled'){clearInterval(t);PUBLISHING={msg:'⚠ Guardado, pero falló la actualización de la app<small>Avisale a Agustín. Las correcciones están guardadas.</small>',done:true};renderBar();return}
+      if(run&&run.status==='completed')return fetch('version.json?nc='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(vj){
+        if(v0&&vj.version!==v0){clearInterval(t);PUBLISHING={msg:'✓ Listo: la app ya tiene las correcciones<small>Al abrirla aparece "Hay datos actualizados"; tocá para recargar.</small>',done:true};renderBar();refreshData()}
+        else{PUBLISHING.msg='✓ Guardado. Publicando… (último paso)<small>Unos segundos más.</small>';renderBar()}});
+    }).catch(function(){});
+  },8000);
+}
+function refreshData(){fetch('panel.bin?nc='+Date.now(),{cache:'no-store'}).then(function(r){return r.arrayBuffer()}).then(decryptJSON).then(function(d){DATA=d;render()}).catch(function(){})}
+
+// ---------- inicio
+function start(raw,panelBuf){
+  return importRaw(raw).then(function(k){KEY=k;return decryptJSON(panelBuf)}).then(function(d){
+    DATA=d;
+    return fetchCorr().then(function(r){CORR=r.corr;
+      var draft=store('fm-panel-draft');if(draft&&draft.dirty&&Object.keys(draft.dirty).length){Object.keys(draft.dirty).forEach(function(id){if(draft.corr[id])CORR[id]=draft.corr[id];else delete CORR[id]});DIRTY=draft.dirty}
+      render();renderBar()});
+  });
+}
+function lockScreen(panelBuf,msg){
+  $('#root').innerHTML='<form class="lock" id="lf"><h2 style="margin:0 0 6px">Corregir fichas</h2><p class="note">Ingresá la misma contraseña de la app.</p><input id="pw" type="password" autocapitalize="none" autocorrect="off" placeholder="Contraseña"><button class="pri" id="go">Entrar</button><div class="err" id="err">'+esc(msg||'')+'</div></form>';
+  $('#lf').onsubmit=function(e){e.preventDefault();var pw=$('#pw').value.trim().toLowerCase();if(!pw)return;$('#go').disabled=true;$('#go').textContent='Abriendo…';
+    derive(pw,SALT).then(function(k){return crypto.subtle.exportKey('raw',k)}).then(function(raw){return start(raw,panelBuf).then(function(){try{localStorage.setItem('fm-key',b64(raw))}catch(e){}})})
+      .catch(function(e){$('#go').disabled=false;$('#go').textContent='Entrar';$('#err').textContent=e&&/^gh /.test(e.message)?'Sin conexión con el servidor. Probá de nuevo.':'Contraseña incorrecta.'})};
+}
+window.addEventListener('beforeunload',function(e){if(Object.keys(DIRTY).length){e.preventDefault();e.returnValue=''}});
+fetch('panel.bin?nc='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('net');return r.arrayBuffer()}).then(function(buf){
+  SALT=new Uint8Array(buf).slice(0,16);var saved=null;try{saved=localStorage.getItem('fm-key')}catch(e){}
+  if(!saved)return lockScreen(buf);
+  return start(unb64(saved),buf).catch(function(e){lockScreen(buf,e&&/^gh /.test(e.message)?'Sin conexión con el servidor. Probá de nuevo.':'')});
+}).catch(function(){$('#root').innerHTML='<div class="center">Hace falta conexión a internet para corregir las fichas.</div>'});
+})();
+</script></body></html>
