@@ -124,14 +124,22 @@ function fetchCorr(){
     return r.json().then(function(j){return decryptJSON(unb64(j.content).buffer).then(function(c){return {corr:c,sha:j.sha}})});
   });
 }
+function keyProblem(status){
+  if(status===401)return 'La clave está mal copiada o venció. Pedile a Agustín una nueva.';
+  if(status===403)return 'La clave no tiene permiso para guardar: en GitHub, "Contents" tiene que estar en "Read and write".';
+  if(status===404)return 'La clave no tiene acceso a este repositorio (fm26-pm98i).';
+  return 'GitHub rechazó la clave (error '+status+').';
+}
 function askToken(){return new Promise(function(resolve,reject){
   $('#sheet').classList.add('on');$('#tErr').textContent='';$('#tok').value='';setTimeout(function(){$('#tok').focus()},200);
   $('#tCancel').onclick=function(){$('#sheet').classList.remove('on');reject(new Error('cancelado'))};
   $('#tf').onsubmit=function(e){e.preventDefault();var t=$('#tok').value.trim();if(!t)return;$('#tOk').disabled=true;$('#tOk').textContent='Verificando…';
-    fetch(API+DATA.repo,{headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json'},cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(j){
+    // prueba real de escritura: crea un blob suelto (no toca ningún archivo; GitHub lo descarta solo)
+    fetch(API+DATA.repo+'/git/blobs',{method:'POST',headers:{'Authorization':'Bearer '+t,'Accept':'application/vnd.github+json'},cache:'no-store',
+      body:JSON.stringify({content:'prueba del panel',encoding:'utf-8'})}).then(function(r){
       $('#tOk').disabled=false;$('#tOk').textContent='Guardar clave';
-      if(!j||!j.permissions||!j.permissions.push){$('#tErr').textContent='Esa clave no sirve para guardar. Revisala con Agustín.';return}
-      TOKEN=t;try{localStorage.setItem('fm-gh-token',t)}catch(e){};$('#sheet').classList.remove('on');resolve();
+      if(r.status===201){TOKEN=t;try{localStorage.setItem('fm-gh-token',t)}catch(e){};$('#sheet').classList.remove('on');resolve();return}
+      $('#tErr').textContent=keyProblem(r.status);
     }).catch(function(){$('#tOk').disabled=false;$('#tOk').textContent='Guardar clave';$('#tErr').textContent='Sin conexión. Probá de nuevo.'})};
 })}
 
@@ -277,13 +285,13 @@ function save(){
       var merged=remote.corr;Object.keys(DIRTY).forEach(function(id){if(CORR[id])merged[id]=CORR[id];else delete merged[id]});
       return encryptJSON(merged).then(function(bytes){return gh('/contents/correcciones.bin',{method:'PUT',body:JSON.stringify({message:'Correcciones desde el celular',content:b64(bytes),sha:remote.sha||undefined,branch:'main'})})})
         .then(function(r){
-          if(r.status===401||r.status===403){TOKEN=null;try{localStorage.removeItem('fm-gh-token')}catch(e){};throw new Error('clave')}
+          if(r.status===401||r.status===403||r.status===404){TOKEN=null;try{localStorage.removeItem('fm-gh-token')}catch(e){};throw new Error('clave:'+r.status)}
           if((r.status===409||r.status===422)&&n<2)return attempt(n+1);
           if(!r.ok)throw new Error('error '+r.status);
           return r.json().then(function(j){CORR=merged;DIRTY={};store('fm-panel-draft',null);follow(j.commit.sha)})});
     })};
   attempt(0).catch(function(e){b.disabled=false;
-    if(e.message==='clave'){$('#barMsg').innerHTML='⚠ La clave de guardado no funcionó<small>Tocá Guardar para ingresarla de nuevo.</small>';return}
+    if(/^clave:/.test(e.message)){$('#barMsg').innerHTML='⚠ La clave de guardado no funcionó<small>'+esc(keyProblem(+e.message.slice(6)))+' Tus cambios siguen en este teléfono.</small>';return}
     $('#barMsg').innerHTML='⚠ No se pudo guardar. Revisá la conexión e intentá de nuevo.<small>Los cambios siguen en este teléfono.</small>'});
 }
 function follow(commit){
