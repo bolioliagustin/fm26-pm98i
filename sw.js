@@ -1,4 +1,4 @@
-const CACHE = "fichas-920dbc38d67e";
+const CACHE = "fichas-b152032e78c7";
 const FILES = ["./", "index.html", "fichas.bin", "manifest.webmanifest", "icon-180.png", "icon-512.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES.map((f) => new Request(f, { cache: "reload" })))).then(() => self.skipWaiting()));
